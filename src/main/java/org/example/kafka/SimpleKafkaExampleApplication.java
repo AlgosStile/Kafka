@@ -9,9 +9,9 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 public class SimpleKafkaExampleApplication {
 
-	@KafkaListener(topics="msg")
-	public void msgListener(String msg){
-		System.out.println(msg);
+	@KafkaListener(topics = "msg")
+	public void msgListener(String msg) {
+		System.out.println("Received message: " + msg);
 	}
 
 	public static void main(String[] args) {

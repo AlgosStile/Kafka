@@ -25,7 +25,7 @@ public class KafkaController {
 
     @PostMapping("/sendMsg")
     public void sendMsg(@RequestParam String msgId, @RequestParam String msg) {
-        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send("msg", msgId, msg);
+        ListenableFuture<SendResult<String, String>> future = (ListenableFuture<SendResult<String, String>>) kafkaTemplate.send("msg", msgId, msg);
         future.addCallback(System.out::println, System.err::println);
         kafkaTemplate.flush();
     }
