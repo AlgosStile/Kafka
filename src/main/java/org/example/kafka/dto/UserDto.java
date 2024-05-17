@@ -10,4 +10,6 @@ public class UserDto {
     private String name;
     private Address address;
 
+    public UserDto(long l, String bob, Address address) {
+    }
 }
