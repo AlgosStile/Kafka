@@ -11,18 +11,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для обработки сообщений.
+ */
 @RestController
 @RequestMapping("msg")
 public class MsgController {
 
     private final KafkaTemplate<Long, UserDto> kafkaTemplate;
 
+    /**
+     * Конструктор контроллера, инъектирующий KafkaTemplate.
+     */
     @Autowired
     public MsgController(KafkaTemplate<Long, UserDto> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-
+    /**
+     * Метод для отправки сообщения в Kafka.
+     *
+     * @param userDto DTO пользователя для отправки сообщения.
+     */
     @PostMapping
     public void sendMessage(@RequestBody UserDto userDto) {
         ListenableFuture<SendResult<Long, UserDto>> future = (ListenableFuture<SendResult<Long, UserDto>>) kafkaTemplate.send("topic_name", userDto.getAge(), userDto);

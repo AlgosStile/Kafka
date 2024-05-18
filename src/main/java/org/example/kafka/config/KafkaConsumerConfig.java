@@ -14,6 +14,9 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Конфигурация потребителя Kafka.
+ */
 @Configuration
 public class KafkaConsumerConfig {
 
@@ -23,6 +26,9 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.consumer.group-id}")
     private String kafkaGroupId;
 
+    /**
+     * Метод конфигурации свойств потребителя.
+     */
     @Bean
     public Map<String, Object> consumerConfigs() {
         Map<String, Object> props = new HashMap<>();
@@ -35,14 +41,19 @@ public class KafkaConsumerConfig {
         return props;
     }
 
+    /**
+     * Метод для создания фабрики контейнера KafkaListener.
+     */
     @Bean
     public ConcurrentKafkaListenerContainerFactory<Long, UserDto> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Long, UserDto> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
+        ConcurrentKafkaListenerContainerFactory<Long, UserDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
 
+    /**
+     * Метод для создания фабрики потребителя.
+     */
     @Bean
     public ConsumerFactory<Long, UserDto> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());

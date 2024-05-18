@@ -14,12 +14,18 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Конфигурация производителя Kafka.
+ */
 @Configuration
 public class KafkaProducerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String kafkaServer;
 
+    /**
+     * Метод конфигурации свойств производителя.
+     */
     @Bean
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
@@ -29,11 +35,17 @@ public class KafkaProducerConfig {
         return props;
     }
 
+    /**
+     * Метод для создания фабрики производителя.
+     */
     @Bean
     public ProducerFactory<Long, UserDto> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
+    /**
+     * Метод для создания шаблона Kafka.
+     */
     @Bean
     public KafkaTemplate<Long, UserDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());

@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Структура данных, представляющая адрес.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
